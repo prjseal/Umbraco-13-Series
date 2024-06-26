@@ -1,6 +1,6 @@
 # Umbraco 13 Tutorial Series
 
-If you are following this series, please click through to the guest book and leave a comment to say what episode you are on and how it is going.
+**[Sign the guest book](https://github.com/prjseal/Umbraco-13-Series/issues/1)**
 
 This is the repository for the Umbraco 13 Tutorial Series by Paul Seal
 
