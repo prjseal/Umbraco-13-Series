@@ -1,0 +1,50 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+figure {
+  margin: 0;
+  padding: 10px;
+}
+
+img {
+	width: 100%;
+	display: block;
+}
+
+.gradient-border {
+	width: 50%;
+	position: relative;
+	margin: 0 auto;
+}
+
+.gradient-border::before {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-image: linear-gradient(@Model.Colour1, @Model.Colour2);
+}
+        </style>
+    </head>
+<body>
+
+
+	<div class="gradient-border">
+		<figure>
+			<img src="@Model.Image.Url()" alt="@Model.Title">
+		</figure>
+	</div>
+
+</body>
+</html>
