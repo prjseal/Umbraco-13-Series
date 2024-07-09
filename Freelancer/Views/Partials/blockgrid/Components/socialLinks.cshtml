@@ -1,0 +1,28 @@
+﻿@inherits UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContentModels.SocialLinks>>
+
+<h4 class="text-uppercase mb-4">@Model.Content.Title</h4>
+
+@if(Model.Content?.Links?.Count > 0)
+{
+    foreach(BlockListItem<ContentModels.SocialLink> item in Model.Content.Links)
+    {
+        if (item.Content.Link is null || item.Content.Icon is null 
+            || item.Content.IconColour is null || item.Content.InvertedIconColour is null) continue;
+
+        var iconKey = item.Content.Icon.Key.ToString("N");
+
+        <style>
+            .svg-@iconKey {
+                fill:@($"#{item.Content.IconColour.Color}");
+            }
+
+            .svg-@iconKey:hover, .svg-@iconKey:focus {
+                fill:@($"#{item.Content.InvertedIconColour.Color}");
+            }
+        </style>
+
+        <a class="btn btn-outline-light btn-social mx-1 svg-@iconKey" href="@item.Content.Link.Url" title="@item.Content.Link.Name" target="@item.Content.Link.Target">
+            <our-svg media-item="item.Content.Icon" class="svg-inline--fa fa-fw"></our-svg>
+        </a>
+    }
+}
