@@ -4,8 +4,4 @@
     if (Model?.Any() != true) { return; }
 }
 
-<div class="umb-block-grid"
-     data-grid-columns="@(Model.GridColumns?.ToString() ?? "12");"
-     style="--umb-block-grid--grid-columns: @(Model.GridColumns?.ToString() ?? "12");">
-    @await Html.GetBlockGridItemsHtmlAsync(Model)
-</div>
+@await Html.GetBlockGridItemsHtmlAsync(Model)
