@@ -1,0 +1,25 @@
+﻿@inherits UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContentModels.StandardHeader>>
+
+<header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        @if(Model.Content.Image != null)
+        {
+            <!-- Masthead Avatar Image-->
+            <img class="masthead-avatar mb-5" src="@Model.Content.Image.GetCropUrl(240)" alt="@Model.Content.Image.GetAltText()" />
+        }
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0">@Model.Content.Title</h1>
+
+        @if(!string.IsNullOrWhiteSpace(Model.Content.Subtitle))
+        {
+            <!-- Icon Divider-->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Masthead Subheading-->
+            <p class="masthead-subheading font-weight-light mb-0">@Model.Content.Subtitle</p>
+        }
+    </div>
+</header>
