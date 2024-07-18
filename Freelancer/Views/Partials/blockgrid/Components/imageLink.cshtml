@@ -1,0 +1,17 @@
+﻿@inherits UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContentModels.ImageLink>>
+
+@{
+    if (Model?.Content?.Image == null || Model?.Content?.Link == null) return;
+}
+
+<!-- Portfolio Item 1-->
+<div class="col-md-6 col-lg-4 mb-5">
+    <div class="portfolio-item mx-auto">
+        <a href="@Model.Content.Link.Url" target="@Model.Content.Link.Target" title="@Model.Content.Link.Name">
+            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+            </div>
+            <img class="img-fluid" src="@Model.Content.Image.GetCropUrl(400, 290)" alt="@Model.Content.Image.GetAltText()" width="400" height="290" />
+        </a>
+    </div>
+</div>

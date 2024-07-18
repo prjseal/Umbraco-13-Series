@@ -1,0 +1,17 @@
+﻿@inherits UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContentModels.ImageLinks>>
+
+@{
+    const int TITLE_AREA = 0;
+    const int CONTENT_AREA = 1;
+}
+
+<!-- Portfolio Section-->
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        @await Html.GetBlockGridItemAreaHtmlAsync(Model.Areas.ElementAt(TITLE_AREA))
+        <!-- Portfolio Grid Items-->
+        <div class="row justify-content-center">
+            @await Html.GetBlockGridItemAreaHtmlAsync(Model.Areas.ElementAt(CONTENT_AREA))
+        </div>
+    </div>
+</section>
