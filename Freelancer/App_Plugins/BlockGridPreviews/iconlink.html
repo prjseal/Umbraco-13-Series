@@ -1,0 +1,49 @@
+﻿<style>
+
+    .outer-button {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        color: black;
+        background-color: transparent;
+        text-align: left;
+        padding: 0;
+        user-select: none;
+        border: none;
+        transition: border-color 120ms, background-color 120ms;
+        max-height: 80vh;
+        overflow: hidden;
+        justify-content: center;
+    }
+
+    .btn {
+        display: flex;
+        flex-direction: row;
+        padding: 1em;
+        border: 1px solid black;
+        background-color: transparent;
+        pointer-events: none;
+    }
+
+    img {
+        height: 1em;
+        width: auto;
+        margin-right: 0.5em;
+    }
+</style>
+
+<button class="outer-button" type="button" ng-click="block.edit()" ng-focus="block.focus" ng-class="{'is-trashed': mediaItem.trashed}">
+    {{mediaItem = (block.data.icon[0].mediaKey | mediaItemResolver); ""}}
+
+    <div class="text-center mt-4">
+        <a class="btn btn-xl btn-outline-light text-dark" href="#">
+            <span class="">
+                <img ng-if="mediaItem !== null && (mediaItem.mediaLink.indexOf('jpeg') !== -1 || mediaItem.mediaLink.indexOf('jpg') !== -1 || mediaItem.mediaLink.indexOf('png') !== -1 || mediaItem.mediaLink.indexOf('webp') !== -1 || mediaItem.mediaLink.indexOf('gif') !== -1 || mediaItem.mediaLink.indexOf('svg') !== -1) && !mediaItem.trashed" ng-src="{{mediaItem.mediaLink}}" alt="{{mediaItem.name}}" />
+            </span>
+            {{block.data.link[0].name}}
+        </a>
+    </div>
+</button>

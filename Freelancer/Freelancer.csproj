@@ -5,6 +5,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\BlockGridPreviews\iconlink.html" />
+    <Content Include="App_Plugins\BlockGridPreviews\imagelink.html" />
+    <Content Include="App_Plugins\BlockGridPreviews\image.html" />
+    <Content Include="App_Plugins\BlockGridPreviews\title.html" />
     <Content Include="App_Plugins\BlockGridPreviews\navigationgroup.html" />
   </ItemGroup>
   <ItemGroup>
@@ -19,6 +23,7 @@
   <ItemGroup>
     <!-- Opt-in to app-local ICU to ensure consistent globalization APIs across different platforms -->
     <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
+    <PackageReference Include="Umbraco.Community.BlockPreview" Version="1.8.4" />
     <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
   </ItemGroup>
 
