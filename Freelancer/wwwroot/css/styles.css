@@ -11044,3 +11044,12 @@ html {
 .copyright {
   background-color: #1a252f;
 }
+
+.icon-link {
+    fill: #fff;
+}
+
+a.btn:hover .icon-link {
+    fill: #000;
+    transition: fill 0.15s ease-in-out;
+}

@@ -1,0 +1,79 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels
+@inherits UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContentModels.CallToAction>>
+
+@{
+    const int TITLE_AREA = 0;
+    const int CONTENT_AREA = 1;
+    const int LINK_AREA = 2;
+    ViewData["hasContainer"] = "true";
+}
+
+<section class="page-section bg-primary text-white mb-0" id="about">
+    <div class="container">
+        <div class="text-white">
+            <!-- About Section Heading-->
+            @await Html.GetBlockGridItemAreaHtmlAsync(Model.Areas.ElementAt(TITLE_AREA))
+        </div>
+        <!-- About Section Content-->
+        <div class="row">
+            @{
+                var contentArea = Model.Areas.ElementAt(CONTENT_AREA);
+                if(contentArea != null && contentArea.Any())
+                {
+                    var classToApply = "";
+                    var itemCount = contentArea.Count;
+                    var i = 0;
+                    foreach(var item in contentArea)
+                    {
+                        if(itemCount > 1)
+                        {
+                            if(itemCount > 1 && i % 2 == 1)
+                            {
+                                classToApply = "me-auto";
+                            }
+                            else
+                            {
+                                classToApply = "ms-auto";
+                            }
+                        }
+                        else
+                        {
+                            classToApply = "mx-auto";
+                        }
+
+                        <div class="col-lg-@item.ColumnSpan @(classToApply)">
+                            @await Html.PartialAsync("blockgrid/Components/richText", item)
+                        </div>
+                        i++;
+                    }
+                }
+            }
+        </div>
+
+        @{
+            var linkArea = Model.Areas.ElementAt(LINK_AREA);
+        }
+
+        @if(linkArea != null && linkArea.Any())
+        {
+            foreach(var item in linkArea)
+            {
+                var iconLink = item.Content as IconLink;
+                if(iconLink != null)
+                {
+                    <!-- About Section Button-->
+                    <div class="text-center mt-4">
+                        <a class="btn btn-xl btn-outline-light" href="@iconLink.Link.Url" target="@iconLink.Link.Target">
+                            @* <i class="fas fa-download me-2"></i> *@
+                            <span class="icon-link">
+                                <our-svg media-item="iconLink.Icon" class="svg-inline--fa fa-fw text-white"></our-svg>
+                            </span>
+                            @iconLink.Link.Name
+                        </a>
+                    </div>
+                }
+            }
+        }
+
+    </div>
+</section>

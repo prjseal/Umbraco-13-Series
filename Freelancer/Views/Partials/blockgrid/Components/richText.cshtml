@@ -1,7 +1,18 @@
 ﻿@inherits UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContentModels.RichText>>
 
-<div class="container my-5">
-    <div class="col-lg-8 mx-auto">
-        @Model.Content.Text
+@{
+    var hasContainer = ViewData["hasContainer"] == "true";
+}
+
+@if(hasContainer)
+{
+    @Model.Content.Text
+}
+else
+{
+    <div class="container my-5">
+        <div class="col-lg-8 mx-auto">
+            @Model.Content.Text
+        </div>
     </div>
-</div>
+}
