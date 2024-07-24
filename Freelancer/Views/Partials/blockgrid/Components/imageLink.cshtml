@@ -11,7 +11,7 @@
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
             </div>
-            <img class="img-fluid" src="@Model.Content.Image.GetCropUrl(400, 290)" alt="@Model.Content.Image.GetAltText()" width="400" height="290" />
+            <img class="img-fluid lazyload" data-srcset="@Url.GetSrcSetUrls(Model.Content.Image, 400, 290)" src="@Model.Content.Image.GetCropUrl(40, 29, quality: 40)" alt="@Model.Content.Image.GetAltText()" width="400" height="290" sizes="auto" />
         </a>
     </div>
 </div>
