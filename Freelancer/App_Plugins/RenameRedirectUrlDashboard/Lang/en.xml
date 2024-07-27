@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="en" intName="English (UK)" localName="English (UK)" lcid="" culture="en-GB">
+  <area alias="dashboardTabs">
+    <key alias="redirects">Manual Redirects</key>
+    <key alias="Skybrud.Umbraco.Redirects">Manual Redirects</key>
+  </area>
+  <area alias="redirects">
+    <key alias="redirects">Manual Redirects</key>
+  </area>
+</language>
