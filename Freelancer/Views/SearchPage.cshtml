@@ -13,21 +13,12 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-lg-3 col-12 mx-auto">
-            @Model.SearchRequest.Query
+            @await Component.InvokeAsync("SearchForm", Model?.SearchRequest)
         </div>
         <div class="col-lg-9 col-12 mx-auto">
-            @if(Model.SearchResponse.HasResults)
-            {
-                <ul>
-                    @foreach(var item in Model.SearchResponse.SearchResults)
-                    {
-                        var contentItem = Umbraco.Content(item.Id);
-                        <li>
-                            <a href="@contentItem.Url()">@contentItem.Name</a>
-                        </li>
-                    }
-                </ul>
-            }
+            @await Component.InvokeAsync("SearchResults", Model?.SearchResponse)
+
+            @await Component.InvokeAsync("Pagination", Model?.Pagination)
         </div>
     </div>
 </div>

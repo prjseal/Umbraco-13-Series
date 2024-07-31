@@ -1,6 +1,7 @@
 ﻿using Examine;
 using Examine.Search;
 
+using Freelancer.Extensions;
 using Freelancer.Models.Search;
 
 using Lucene.Net.Analysis.Core;
@@ -9,15 +10,17 @@ using StackExchange.Profiling.Internal;
 
 using Umbraco.Cms.Infrastructure.Examine;
 
-using UmbracoConstants = Umbraco.Cms.Core.Constants;
-
 namespace Freelancer.Services;
 
 public class SearchService : ISearchService
 {
     private readonly IExamineManager _examineManager;
     private readonly string[] _docTypesToExclude =
-        [PageTags.ModelTypeAlias, PageTag.ModelTypeAlias, SiteSettings.ModelTypeAlias, ReusableContentRepository.ModelTypeAlias, ReusableContent.ModelTypeAlias];
+        [PageTags.ModelTypeAlias,
+            PageTag.ModelTypeAlias,
+            SiteSettings.ModelTypeAlias,
+            ReusableContentRepository.ModelTypeAlias,
+            ReusableContentItem.ModelTypeAlias];
 
     public SearchService(IExamineManager examineManager)
     {
@@ -34,7 +37,7 @@ public class SearchService : ISearchService
 
         IBooleanOperation? query = index.Searcher.CreateQuery(IndexTypes.Content)
             .GroupedNot(["umbracoNaviHide"], ["1"])
-            .And().GroupedNot(["__NodeTpeAlias"], _docTypesToExclude);
+            .And().GroupedNot(["__NodeTypeAlias"], _docTypesToExclude);
 
         string[]? terms = !string.IsNullOrWhiteSpace(searchRequest.Query)
             ? searchRequest.Query.Split(" ", StringSplitOptions.RemoveEmptyEntries)
@@ -43,7 +46,30 @@ public class SearchService : ISearchService
         if (terms != null && terms.Length > 0)
         {
             query!.And().Group(q => q
-                .GroupedOr(["nodeName"], terms), BooleanOperation.Or);
+                .GroupedOr(["metaTitle"], terms.Boost(80))
+                .Or()
+                .GroupedOr(["nodeName"], terms.Boost(70))
+                .Or()
+                .GroupedOr(["metaTitle"], terms.Fuzzy())
+                .Or()
+                .GroupedOr(["metaTitle"], terms.MultipleCharacterWildcard())
+                .Or()
+                .GroupedOr(["nodeName"], terms.Fuzzy())
+                .Or()
+                .GroupedOr(["nodeName"], terms.MultipleCharacterWildcard())
+                .Or()
+                .GroupedOr(["metaDescription"], terms.Boost(50))
+                .Or()
+                .GroupedOr(["headerContent"], terms.Boost(40))
+                .Or()
+                .GroupedOr(["mainContent"], terms.Boost(40)
+
+                ), BooleanOperation.Or);
+        }
+
+        if (searchRequest.SelectedTags != null)
+        {
+            query.And().GroupedOr(["tags"], searchRequest.SelectedTags);
         }
 
         ISearchResults? pageOfResults = query.Execute(new QueryOptions(searchRequest.Skip, searchRequest.PageSize));

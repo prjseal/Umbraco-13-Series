@@ -1,0 +1,24 @@
+﻿@inherits UmbracoViewPage<PaginationViewModel>
+@using Freelancer.Models.ViewModels
+
+@if(Model != null && Model?.TotalPages > 1)
+{
+    <nav aria-label="Page naviation">
+        <ul class="pagination">
+            @if(Model.CurrentPage > 1)
+            {
+                <li class="page-item"><a class="page-link" href="@string.Format(Model.PaginationUrlFormat ?? "", (Model?.CurrentPage - 1).ToString())">Previous</a></li>
+            }
+
+            @for(int i = 1; i < Model?.TotalPages; i++)
+            {
+                <li class="page-item"><a class="page-link" href="@string.Format(Model.PaginationUrlFormat ?? "", i.ToString())">@i</a></li>
+            }
+
+            @if (Model?.CurrentPage < Model?.TotalPages)
+            {
+                <li class="page-item"><a class="page-link" href="@string.Format(Model.PaginationUrlFormat ?? "", (Model?.CurrentPage + 1).ToString())">Next</a></li>
+            }
+        </ul>
+    </nav>
+}
