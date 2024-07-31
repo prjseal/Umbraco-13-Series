@@ -1,6 +1,33 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.SearchPage>
-@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<SearchPageContentModel>
+
 @{
-	Layout = null;
+    Layout = "Main.cshtml";
 }
+
+<header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        <h1 class="masthead-heading text-uppercase mb-0">@Model.Content.Name</h1>
+    </div>
+</header>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-3 col-12 mx-auto">
+            @Model.SearchRequest.Query
+        </div>
+        <div class="col-lg-9 col-12 mx-auto">
+            @if(Model.SearchResponse.HasResults)
+            {
+                <ul>
+                    @foreach(var item in Model.SearchResponse.SearchResults)
+                    {
+                        var contentItem = Umbraco.Content(item.Id);
+                        <li>
+                            <a href="@contentItem.Url()">@contentItem.Name</a>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
