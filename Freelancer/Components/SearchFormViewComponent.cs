@@ -1,17 +1,14 @@
 ﻿using Freelancer.Models.Search;
-using Freelancer.Models.ViewModels;
 
 using Microsoft.AspNetCore.Mvc;
 
 namespace Freelancer.Components;
 
-[ViewComponent(Name = "Pagination")]
-public class PaginationViewComponent : ViewComponent
+[ViewComponent(Name = "SearchForm")]
+public class SearchFormViewComponent : ViewComponent
 {
-    public IViewComponentResult Invoke(PaginationViewModel model)
+    public IViewComponentResult Invoke(SearchRequestModel model)
     {
-        model ??= new PaginationViewModel();
-
         return View(model);
     }
 }
