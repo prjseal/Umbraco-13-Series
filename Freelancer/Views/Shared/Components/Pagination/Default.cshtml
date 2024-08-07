@@ -10,7 +10,7 @@
                 <li class="page-item"><a class="page-link" href="@string.Format(Model.PaginationUrlFormat ?? "", (Model?.CurrentPage - 1).ToString())">Previous</a></li>
             }
 
-            @for(int i = 1; i < Model?.TotalPages; i++)
+            @for(int i = 1; i <= Model?.TotalPages; i++)
             {
                 <li class="page-item"><a class="page-link" href="@string.Format(Model.PaginationUrlFormat ?? "", i.ToString())">@i</a></li>
             }
