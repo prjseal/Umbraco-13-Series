@@ -3,3 +3,13 @@
 ################################################################################
 
 /.vs
+/Freelancer.Shared/bin
+/Freelancer.Shared/obj
+/Freelancer.Shared/appsettings-schema*
+
+/Freelancer.Core/bin
+/Freelancer.Core/obj
+/Freelancer.Core/appsettings-schema*
+
+/Freelancer.Plugins/bin
+/Freelancer.Plugins/obj

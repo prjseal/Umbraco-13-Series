@@ -1,0 +1,27 @@
+﻿@inherits UmbracoViewPage<SearchRequestModel>
+@using Freelancer.Core.Controllers.Surface
+@using Freelancer.Core.Models.Search;
+
+<form method="get" action="@Umbraco.AssignedContentItem.Url()">
+    <div class="mb-3">
+        <label for="query" class="form-label d-none" aria-hidden="true">Search Term</label>
+        <input class="form-control" id="query" type="text" placeholder="Search term" name="query" value="@Model?.Query" />
+    </div>
+
+    <div class="mb-3">
+        @if(Model?.AllTags != null && Model.AllTags.Any())
+        {
+            var i = 0;
+            @foreach(var tag in Model.AllTags)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="SelectedTags" id="@($"SelectedTags_{i}")" value="@(tag.Value)" checked="@(tag.Selected ? "selected" : null)" />
+                    <label class="form-check-label" for="@($"SelectedTags_{i}")">@tag.Text</label>
+                </div>
+                i++;
+            }
+        }
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+</form>
