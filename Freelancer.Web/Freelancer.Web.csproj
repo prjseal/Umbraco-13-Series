@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Models\**" />
+    <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Config\Lang\en-US.user.xml" />
+    <None Remove="Config\Lang\en.user.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\Lang\en-US.user.xml" />
+    <Content Include="Config\Lang\en.user.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Our.Umbraco.Slimsy" Version="5.1.2" />
+    <PackageReference Include="Our.Umbraco.TagHelpers" Version="1.2.0" />
+    <PackageReference Include="Our.Umbraco.TheDashboard" Version="13.0.1" />
+    <PackageReference Include="Skybrud.Umbraco.Redirects" Version="13.0.4" />
+    <PackageReference Include="Umbraco.Cms" Version="13.4.0" />
+    <PackageReference Include="uSync" Version="13.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Opt-in to app-local ICU to ensure consistent globalization APIs across different platforms -->
+    <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
+    <PackageReference Include="Umbraco.Community.BlockPreview" Version="1.8.4" />
+    <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Freelancer.Core\Freelancer.Core.csproj" />
+    <ProjectReference Include="..\Freelancer.Plugins\Freelancer.Plugins.csproj" />
+    <ProjectReference Include="..\Freelancer.Shared\Freelancer.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="App_Plugins\" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Razor files are needed for the backoffice to work correctly -->
+    <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Remove RazorCompileOnBuild and RazorCompileOnPublish when not using ModelsMode InMemoryAuto -->
+    <RazorCompileOnBuild>false</RazorCompileOnBuild>
+    <RazorCompileOnPublish>false</RazorCompileOnPublish>
+    <UserSecretsId>69525f74-5c1f-482a-98ea-f861917f2cdf</UserSecretsId>
+  </PropertyGroup>
+
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="dotnet format --severity warn --verbosity diagnostic" />
+    </Target>
+</Project>
